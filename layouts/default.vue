@@ -86,6 +86,11 @@ export default {
           icon: "mdi-chart-bubble",
           title: "Mark",
           to: "/mark"
+        },
+        {
+          icon: "mdi-chart-bubble",
+          title: "Prism",
+          to: "/prism"
         }
       ],
       miniVariant: false,

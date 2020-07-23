@@ -64,7 +64,10 @@ Start numbering with offset:
 57. foo
 1. bar
       `
-    }
+    };
+  },
+  mounted() {
+    Prism.highlightAll();
   }
-}
+};
 </script>
