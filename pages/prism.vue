@@ -11,16 +11,19 @@ p { color: green }</code>
 p { color: blue }
 p { color: green }</code>
 </pre>
-      <div class="md" v-html="$md.render(abc)"></div>
       <pre class="line-numbers"><code class="language-css">p { color: blue }
 p { color: bluedwdwdwdwdwdwdbluedwdwdwdwdwdwdbluedwdwdwdwdwdwdbluedwdwd }
 p { color: green }</code>
 </pre>
+      <div class="md" v-html="$md.render(abc)"></div>
       <pre
         data-file="extream.vue"
       ><code class="language-markup" v-text="html"></code>
 </pre>
-      <pre class="language-markup"><code class="language-js" v-text="ss"></code>
+      <div class="md" v-html="$md.render(abc)"></div>
+      <pre
+        data-file="src/page/fine.vue"
+      ><code class="language-js" v-text="ss"></code>
 </pre>
     </v-flex>
   </v-layout>
@@ -33,7 +36,7 @@ export default {
       abc: `
 !が末尾に付く破壊的メソッド(\`save!\`など)では、レコードが無効な場合に例外が発生します。
 非破壊的なメソッドは、\`v-for="(koma, index) in this.komaList"\`無効な場合に例外を発生しません。
-\`save\`と\`update\`は無効な場合にfalseを返し、createは無効な場合に単にそのオブジェクトを返します。
+\`save\`と\`this.$router.push('/500')\`は無効な場合にfalseを返し、createは無効な場合に単にそのオブジェクトを返します。
       `,
       html: `
 <template>
@@ -54,7 +57,8 @@ export default {
     </tr>
   </v-layout>
 </template>`,
-      ss: `export default {
+      ss: `
+export default {
   data() {
     return {
       html: 'aaaa'
@@ -86,12 +90,16 @@ export default {
 pre[data-file]::before {
   content: attr(data-file);
   background-color: #6f6f6f;
-  padding: 2px 8px 3px;
+  padding: 2px 8px;
   position: absolute;
   margin-top: -1em;
   border-radius: 0 0 4px 4px;
   text-shadow: 1px 1px 2px #2b2a2a;
   box-shadow: 8px 10px 10px -4px rgba(0, 0, 0, 0.3);
+}
+
+.v-application p {
+  margin: 24px 0;
 }
 
 .v-application code {
@@ -115,11 +123,15 @@ pre {
 }
 
 .md code {
-  font-size: 17px;
-  font-family: "Roboto", sans-serif;
+  /* font-size: 17px;
+  font-family: "Roboto", sans-serif; */
+  font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
+  font-size: 15px;
   font-weight: normal;
-  color: #222;
+  color: #111;
   padding: 0 0.3rem;
+  margin: 0 2px;
   background-color: #eee;
+  line-height: 1.5;
 }
 </style>

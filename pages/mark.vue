@@ -18,6 +18,10 @@ export default {
 ### h3 Heading
 #### h4 Heading
 
+!が末尾に付く破壊的メソッド(\`save!\`など)では、レコードが無効な場合に例外が発生します。
+非破壊的なメソッドは、\`v-for="(koma, index) in this.komaList"\`無効な場合に例外を発生しません。
+\`save\`と\`update\`は無効な場合にfalseを返し、createは無効な場合に単にそのオブジェクトを返します。
+
 ## Emphasis
 
 **This is bold text**
