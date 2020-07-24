@@ -58,6 +58,7 @@ export default {
   </v-layout>
 </template>`,
       ss: `
+import Prism from "prismjs";
 export default {
   data() {
     return {
@@ -98,8 +99,9 @@ pre[data-file]::before {
   box-shadow: 8px 10px 10px -4px rgba(0, 0, 0, 0.3);
 }
 
-.v-application p {
+.v-application .md p {
   margin: 24px 0;
+  line-height: 1.7;
 }
 
 .v-application code {
