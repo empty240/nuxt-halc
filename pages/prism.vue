@@ -104,6 +104,7 @@ pre[data-file]::before {
 
 .v-application code {
   padding: 0;
+  font-weight: 500;
 }
 
 .language-markup .tag,
@@ -117,14 +118,11 @@ pre[data-file]::before {
   text-align: left;
 }
 pre {
-  /* background-color: #201b3e !important; */
   background-color: #1d1933 !important;
   font-family: monospace !important;
 }
 
 .md code {
-  /* font-size: 17px;
-  font-family: "Roboto", sans-serif; */
   font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
   font-size: 15px;
   font-weight: normal;
