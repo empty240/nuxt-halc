@@ -23,8 +23,7 @@ p { color: green }</code>
       ><code class="language-markup" v-text="html"></code>
 </pre>
       <div class="md" v-html="$md.render(abc)"></div>
-      <pre
-        data-file="src/page/fine.vue"
+      <pre data-file="src/page/fine.vue"
       ><code class="language-js" v-text="ss"></code>
 </pre>
     </v-flex>
@@ -33,6 +32,11 @@ p { color: green }</code>
 
 <script>
 export default {
+  head() {
+    return {
+      title: "codeシンタックスハイライト"
+    };
+  },
   data() {
     return {
       abc: `
@@ -70,6 +74,7 @@ export default {
     };
   },
   watch: {
+    // エラーを返す
     errorCode: {
       handler (val) {
         if (val === INTERNAL_SERVER_ERROR) {
@@ -126,7 +131,7 @@ pre[class*="language-"] {
 
 .language-markup .tag,
 .language-markup .punctuation {
-  color: #d68065;
+  color: #d27534;
 }
 .language-markup .attr-value .punctuation {
   color: #fff;
