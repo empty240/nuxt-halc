@@ -1,6 +1,7 @@
 <template>
   <v-layout>
     <v-flex>
+      <span>{{ showAb() }}</span>
       <pre data-file="wewew.js"><code class="language-css" data-file="aaa.js">
 p { color: red }
 p { color: blue }
@@ -92,6 +93,12 @@ export default {
   },
   mounted() {
     Prism.highlightAll();
+  },
+  methods: {
+    showAb () {
+      const ab = process.env.AB
+      console.log(ab)
+    }
   }
 };
 </script>
