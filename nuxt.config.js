@@ -1,7 +1,7 @@
 import colors from "vuetify/es5/util/colors";
 const environment = process.env.NODE_ENV || 'development'
 const env = require(`./env.${environment}.js`)
-
+const client = require("./plugins/contentful")
 export default {
   /*
    ** Nuxt rendering mode
@@ -40,7 +40,10 @@ export default {
    ** Plugins to load before mounting the App
    ** https://nuxtjs.org/guide/plugins
    */
-  plugins: [{ src: "~/plugins/prism" }],
+  plugins: [
+    { src: "~/plugins/prism" },
+    '~/plugins/contentful'
+  ],
   /*
    ** Auto import components
    ** See https://nuxtjs.org/api/configuration-components
