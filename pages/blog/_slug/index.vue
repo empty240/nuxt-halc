@@ -1,9 +1,9 @@
 <template>
   <v-layout>
     <v-flex class="">
-      <img :src="post.fields.thumbnail.fields.file.url" width="100%" />
+      <img v-if="post.fields.thumbnail" :src="post.fields.thumbnail.fields.file.url" width="100%" />
       <div v-html="$md.render(post.fields.content)"></div>
-      {{post}}
+      <div style="margin-top: 50px">{{post}}</div>
     </v-flex>
   </v-layout>
 </template>
@@ -16,8 +16,8 @@ export default {
   async asyncData({ params }) {
     // 記事詳細を取得
     const entries = await client.getEntries({
+      'fields.slug': params.slug,
       content_type: process.env.CTF_CONTENT_TYPE_BLOG_ID,
-      'fields.slug': params.slug
     })
     return {
       post: entries.items[0]
@@ -30,6 +30,12 @@ export default {
 </script>
 
 <style>
+.v-application h1,
+.v-application p,
+.v-application ul,
+.v-application .gray-block{
+    margin-bottom: 16px;
+}
 .v-application code {
   padding: 0;
   font-weight: 500;
@@ -38,6 +44,7 @@ h1 {
   font-size: 24px;
   border-left: 6px solid #1538b7;
   padding: 0 0 0 8px;
+  margin-top: 40px;
 }
 h2 {
   font-size: 20px;
@@ -61,5 +68,27 @@ h2 {
 
 pre[class*="language-"] {
   background-color: #25232b;
+  margin-bottom: 20px;
+}
+
+img {
+  width: 100%;
+}
+
+.v-application p code,
+.v-application li code {
+  font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
+  font-size: 15px;
+  font-weight: normal;
+  color: #111;
+  padding: 0.1em 0.4rem;
+  margin: 0 2px;
+  background-color: #efefef;
+  line-height: 1.5;
+}
+
+.gray-block {
+  padding: 8px; 
+  background-color: #eee;
 }
 </style>
