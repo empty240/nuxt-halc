@@ -1,6 +1,7 @@
 <template>
   <v-layout>
     <v-flex class="text-center">
+      <div v-html="$md.render(ss)"></div>
       <div v-html="$md.render(markdown)"></div>
     </v-flex>
   </v-layout>
@@ -10,13 +11,16 @@
 export default {
   data() {
     return {
+      ss: 'aaaa`bb"`ccccc',
       markdown: `
 # h1 Heading
 ## h2 Heading
 ### h3 Heading
 #### h4 Heading
-##### h5 Heading
-###### h6 Heading
+
+!が末尾に付く破壊的メソッド(\`save!\`など)では、レコードが無効な場合に例外が発生します。
+非破壊的なメソッドは、\`v-for="(koma, index) in this.komaList"\`無効な場合に例外を発生しません。
+\`save\`と\`update\`は無効な場合にfalseを返し、createは無効な場合に単にそのオブジェクトを返します。
 
 ## Emphasis
 
@@ -65,9 +69,6 @@ Start numbering with offset:
 1. bar
       `
     };
-  },
-  mounted() {
-    Prism.highlightAll();
   }
 };
 </script>

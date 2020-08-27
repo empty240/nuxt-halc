@@ -1,5 +1,7 @@
 import colors from "vuetify/es5/util/colors";
-
+const environment = process.env.NODE_ENV || 'development'
+const env = require(`./env.${environment}.js`)
+const client = require("./plugins/contentful")
 export default {
   /*
    ** Nuxt rendering mode
@@ -29,6 +31,7 @@ export default {
     ],
     link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }]
   },
+  env,
   /*
    ** Global CSS
    */
@@ -37,7 +40,10 @@ export default {
    ** Plugins to load before mounting the App
    ** https://nuxtjs.org/guide/plugins
    */
-  plugins: ["~/plugins/prism"],
+  plugins: [
+    { src: "~/plugins/prism" },
+    '~/plugins/contentful'
+  ],
   /*
    ** Auto import components
    ** See https://nuxtjs.org/api/configuration-components
@@ -69,7 +75,7 @@ export default {
   vuetify: {
     customVariables: ["~/assets/variables.scss"],
     theme: {
-      dark: true,
+      dark: false,
       themes: {
         dark: {
           primary: colors.blue.darken2,
