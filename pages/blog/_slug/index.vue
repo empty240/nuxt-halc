@@ -24,7 +24,7 @@ export default {
     }
   },
   mounted() {
-    Prism.highlightAll();
+    Prism.highlightAll()
   },
 }
 </script>
@@ -66,9 +66,18 @@ h2 {
   font-family: Osaka;
 }
 
-pre[class*="language-"] {
+pre[class*="language-"], pre {
   background-color: #25232b;
   margin-bottom: 20px;
+}
+pre {
+  padding: 1em;
+}
+pre code {
+  line-height: 1 !important;
+}
+.token.comment, .token.prolog, .token.doctype, .token.cdata {
+    color: #808f9e;
 }
 
 img {
