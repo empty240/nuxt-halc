@@ -7,9 +7,15 @@
           md="9"
           class="pa-7"
         >
-      <img v-if="post.fields.thumbnail" :src="post.fields.thumbnail.fields.file.url" width="100%" />
-      <div v-html="$md.render(post.fields.content)"></div>
-      <div style="margin-top: 50px">{{post}}</div>
+      <img v-if="article.fields.thumbnail" :src="article.fields.thumbnail.fields.file.url" width="100%" />
+      <v-row>
+        <span class="grey--text">{{ $jaDate(article.fields.createdAt) }}</span>
+      </v-row>
+      <v-row>
+        <span>{{article.fields.title}}</span>
+      </v-row>
+      <div v-html="$md.render(article.fields.content)"></div>
+      <div style="margin-top: 50px">{{article}}</div>
         </v-col>
         <v-col
           sm="12"
@@ -17,6 +23,39 @@
           class="pa-7"
         >
           <blog-author />
+          <div v-for="(post, index) in relateArticles" :key="index"
+      >
+          <nuxt-link :to="`/blog/${post.fields.slug}`" class="link">
+      <v-hover>
+        <template v-slot="{ hover }">
+        <v-card
+        :elevation="hover ? 24 : 6"
+        class="card-link"
+        >
+          <v-img
+            class="white--text"
+            height="200px"
+            :src="post.fields.thumbnail.fields.file.url"
+          >
+            <v-container fill-height fluid>
+              <v-layout fill-height>
+                <v-flex xs12 align-end flexbox>
+                  <span class="headline"></span>
+                </v-flex>
+              </v-layout>
+            </v-container>
+          </v-img>
+          <v-card-title>
+            <div>
+              <span class="grey--text">Number 10</span><br>
+              <span>{{post.fields.title}}</span>
+            </div>
+          </v-card-title>
+        </v-card>
+        </template>
+        </v-hover>
+      </nuxt-link>
+          </div>
         </v-col>
       </v-row>
     </v-flex>
@@ -36,11 +75,14 @@ export default {
   async asyncData({ params }) {
     // 記事詳細を取得
     const entries = await client.getEntries({
-      'fields.slug': params.slug,
+      // 'fields.slug': params.slug,
       content_type: process.env.CTF_CONTENT_TYPE_BLOG_ID,
     })
+    const article = entries.items.find(item => item.fields.slug === params.slug)
+    const relateArticles = entries.items.filter(item => item.fields.slug !== params.slug)
     return {
-      post: entries.items[0]
+      article: article,
+      relateArticles: relateArticles
     }
   },
   mounted() {

@@ -33,7 +33,7 @@
           </v-img>
           <v-card-title>
             <div>
-              <span class="grey--text">Number 10</span><br>
+              <span class="grey--text">{{ $jaDate(post.fields.createdAt) }}</span><br>
               <span>{{post.fields.title}}</span>
             </div>
           </v-card-title>
