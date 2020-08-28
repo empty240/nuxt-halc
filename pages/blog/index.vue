@@ -1,6 +1,11 @@
 <template>
   <v-layout>
     <v-flex class="">
+      <v-row class="blog-title-wrap">
+        <v-col class="blog-title">
+          fuzzy
+        </v-col>
+      </v-row>
       <v-row>
       <v-col v-for="(post, index) in posts" :key="index"
         sm="6"
@@ -71,6 +76,9 @@ export default {
 </script>
 
 <style scoped>
+.blog-title {
+  text-align: center;
+}
 .v-card__title {
   font-size: 1.15rem;
 }

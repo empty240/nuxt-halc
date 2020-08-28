@@ -42,7 +42,7 @@
       </v-btn>
     </v-app-bar>
     <v-content>
-      <v-container>
+      <v-container pa-6 style="max-width: 1200px;">
         <nuxt />
       </v-container>
     </v-content>

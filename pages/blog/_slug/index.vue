@@ -1,18 +1,38 @@
 <template>
   <v-layout>
     <v-flex class="">
+      <v-row>
+        <v-col
+          sm="12"
+          md="9"
+          class="pa-7"
+        >
       <img v-if="post.fields.thumbnail" :src="post.fields.thumbnail.fields.file.url" width="100%" />
       <div v-html="$md.render(post.fields.content)"></div>
       <div style="margin-top: 50px">{{post}}</div>
+        </v-col>
+        <v-col
+          sm="12"
+          md="3"
+          class="pa-7"
+        >
+          <blog-author />
+        </v-col>
+      </v-row>
     </v-flex>
   </v-layout>
 </template>
 <script>
 import { createClient } from '~/plugins/contentful.js'
 import Prism from '~/plugins/prism'
+import BlogAuthor from "~/components/BlogAuthor.vue";
 
 const client = createClient()
 export default {
+  components: {
+    BlogAuthor
+  },
+  layout: 'article',
   async asyncData({ params }) {
     // 記事詳細を取得
     const entries = await client.getEntries({

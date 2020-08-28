@@ -1,6 +1,6 @@
 <template>
   <v-app dark>
-    <v-container pa-7 style="max-width: 1185px;">
+    <v-container style="max-width: 1185px;">
       <nuxt />
     </v-container>
     <v-footer :absolute="!fixed" app>
