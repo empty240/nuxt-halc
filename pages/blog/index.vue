@@ -1,11 +1,6 @@
 <template>
   <v-layout>
     <v-flex class="article-list">
-      <v-row class="blog-title-wrap">
-        <v-col class="blog-title">
-          fuzzy
-        </v-col>
-      </v-row>
       <v-row>
       <v-col v-for="(post, index) in posts" :key="index"
         sm="6"
@@ -53,7 +48,7 @@ import { createClient } from '~/plugins/contentful.js'
 
 const client = createClient()
 export default {
-  layout: 'top',
+  layout: 'list',
   async asyncData({ params }) {
     // 記事一覧を取得
     const entries = await client.getEntries({
