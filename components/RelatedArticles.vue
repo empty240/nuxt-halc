@@ -1,12 +1,9 @@
 <template>
-  <v-layout>
-    <v-flex class="article-list">
-      <v-row>
-      <v-col v-for="(post, index) in posts" :key="index"
-        sm="6"
-        md="4"
-      >
-      <nuxt-link :to="`/${post.fields.slug}`" class="link">
+<div>
+  <div v-if="articles.length > 0" class="side-title">関連記事</div>
+  <div v-for="(post, index) in articles" :key="index"
+      class="card-wrap">
+          <nuxt-link :to="`/${post.fields.slug}`" class="link">
       <v-hover>
         <template v-slot="{ hover }">
         <v-card
@@ -15,7 +12,7 @@
         >
           <v-img
             class="white--text"
-            height="200px"
+            height="120px"
             :src="post.fields.thumbnail.fields.file.url"
           >
             <v-container fill-height fluid>
@@ -28,7 +25,6 @@
           </v-img>
           <v-card-title>
             <div>
-              <span class="grey--text">{{ $jaDate(post.fields.createdAt) }}</span><br>
               <span>{{post.fields.title}}</span>
             </div>
           </v-card-title>
@@ -36,46 +32,41 @@
         </template>
         </v-hover>
       </nuxt-link>
-      </v-col>
-      </v-row>
-      <!-- <div>{{ posts }}</div> -->
-    </v-flex>
-  </v-layout>
+    </div>
+</div>
 </template>
 
-<script>
-import { createClient } from '~/plugins/contentful.js'
 
-const client = createClient()
+<script>
 export default {
-  layout: 'list',
-  async asyncData({ params }) {
-    // 記事一覧を取得
-    const entries = await client.getEntries({
-      content_type: process.env.CTF_CONTENT_TYPE_BLOG_ID,
-      order: '-sys.createdAt'
-    })
-    return {
-      posts: entries.items
+  props: {
+    articles: {
+      type: Array,
+      required: false
     }
   }
 }
 </script>
 
 <style scoped>
-.article-list {
-  margin-bottom: 50px;
+.side-title {
+    font-size: 18px;
+    border-left: 6px solid #1538b7;
+    padding: 2px 0 2px 8px;
+    margin-top: 20px;
+    background-color: #f5f5f5;
 }
-.blog-title {
-  text-align: center;
-}
-.v-card__title {
-  font-size: 1.15rem;
+.card-wrap {
+  margin: 20px 0;
 }
 .link {
   text-decoration: none !important;
 }
 .card-link:hover {
   opacity: .9;
+}
+.v-card__title {
+  font-size: 14px;
+  line-height: 1.5;
 }
 </style>

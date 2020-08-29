@@ -1,26 +1,60 @@
 <template>
   <v-layout>
     <v-flex class="">
-      <img v-if="post.fields.thumbnail" :src="post.fields.thumbnail.fields.file.url" width="100%" />
-      <div v-html="$md.render(post.fields.content)"></div>
-      <div style="margin-top: 50px">{{post}}</div>
+      <v-row>
+        <v-col
+          sm="12"
+          md="9"
+          class="pa-7"
+        >
+      <img v-if="article.fields.thumbnail" :src="article.fields.thumbnail.fields.file.url" width="100%" />
+      <div class="published-date">
+        <span class="grey--text">
+          {{ $jaDate(article.fields.createdAt) }}
+          </span>
+      </div>
+      <div class="article-title">
+        <span>{{article.fields.title}}</span>
+      </div>
+      <div v-html="$md.render(article.fields.content)"></div>
+      <!-- <div style="margin-top: 50px">{{article}}</div> -->
+        </v-col>
+        <v-col sm="12" md="3" class="pa-7">
+          <blog-author />
+          <related-articles
+            :articles="relateArticles"
+          />
+        </v-col>
+      </v-row>
     </v-flex>
   </v-layout>
 </template>
 <script>
 import { createClient } from '~/plugins/contentful.js'
 import Prism from '~/plugins/prism'
+import BlogAuthor from "~/components/BlogAuthor.vue"
+import RelatedArticles from "~/components/RelatedArticles.vue"
+
 
 const client = createClient()
 export default {
+  components: {
+    BlogAuthor,
+    RelatedArticles
+  },
+  layout: 'article',
   async asyncData({ params }) {
     // 記事詳細を取得
     const entries = await client.getEntries({
-      'fields.slug': params.slug,
+      // 'fields.slug': params.slug,
       content_type: process.env.CTF_CONTENT_TYPE_BLOG_ID,
+      order: '-sys.createdAt'
     })
+    const article = entries.items.find(item => item.fields.slug === params.slug)
+    const relateArticles = entries.items.filter(item => item.fields.slug !== params.slug)
     return {
-      post: entries.items[0]
+      article: article,
+      relateArticles: relateArticles
     }
   },
   mounted() {
@@ -28,6 +62,16 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+.published-date {
+  margin: 5px 0;
+}
+.article-title {
+  font-size: 26px;
+  font-weight: bold;
+}
+</style>
 
 <style>
 .v-application h1,
@@ -43,8 +87,9 @@ export default {
 h1 {
   font-size: 24px;
   border-left: 6px solid #1538b7;
-  padding: 0 0 0 8px;
+  padding: 4px 0 0 8px;
   margin-top: 40px;
+  background-color: #f5f5f5;
 }
 h2 {
   font-size: 20px;
