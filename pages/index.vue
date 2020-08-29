@@ -1,95 +1,81 @@
 <template>
-  <v-layout column justify-center align-center>
-    <v-flex xs12 sm8 md6>
-      <div class="text-center">
-        <logo />
-        <vuetify-logo />
-      </div>
-      <v-card>
-        <v-card-title class="headline">
-          Welcome to the Vuetify + Nuxt.js template
-        </v-card-title>
-        <v-card-text>
-          <p>
-            Vuetify is a progressive Material Design component framework for
-            Vue.js. It was designed to empower developers to create amazing
-            applications.
-          </p>
-          <p>
-            For more information on Vuetify, check out the
-            <a
-              href="https://vuetifyjs.com"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              documentation </a
-            >.
-          </p>
-          <p>
-            If you have questions, please join the official
-            <a
-              href="https://chat.vuetifyjs.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              title="chat"
-            >
-              discord </a
-            >.
-          </p>
-          <p>
-            Find a bug? Report it on the github
-            <a
-              href="https://github.com/vuetifyjs/vuetify/issues"
-              target="_blank"
-              rel="noopener noreferrer"
-              title="contribute"
-            >
-              issue board </a
-            >.
-          </p>
-          <p>
-            Thank you for developing with Vuetify and I look forward to bringing
-            more exciting features in the future.
-          </p>
-          <div class="text-xs-right">
-            <em><small>&mdash; John Leider</small></em>
-          </div>
-          <hr class="my-3" />
-          <a
-            href="https://nuxtjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
+  <v-layout>
+    <v-flex class="article-list">
+      <v-row>
+      <v-col v-for="(post, index) in posts" :key="index"
+        sm="6"
+        md="4"
+      >
+      <nuxt-link :to="`/${post.fields.slug}`" class="link">
+      <v-hover>
+        <template v-slot="{ hover }">
+        <v-card
+        :elevation="hover ? 24 : 6"
+        class="card-link"
+        >
+          <v-img
+            class="white--text"
+            height="200px"
+            :src="post.fields.thumbnail.fields.file.url"
           >
-            Nuxt Documentation
-          </a>
-          <br />
-          <a
-            href="https://github.com/nuxt/nuxt.js"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Nuxt GitHub
-          </a>
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer />
-          <v-btn color="primary" nuxt to="/inspire">
-            Continue
-          </v-btn>
-        </v-card-actions>
-      </v-card>
+            <v-container fill-height fluid>
+              <v-layout fill-height>
+                <v-flex xs12 align-end flexbox>
+                  <span class="headline"></span>
+                </v-flex>
+              </v-layout>
+            </v-container>
+          </v-img>
+          <v-card-title>
+            <div>
+              <span class="grey--text">{{ $jaDate(post.fields.createdAt) }}</span><br>
+              <span>{{post.fields.title}}</span>
+            </div>
+          </v-card-title>
+        </v-card>
+        </template>
+        </v-hover>
+      </nuxt-link>
+      </v-col>
+      </v-row>
+      <!-- <div>{{ posts }}</div> -->
     </v-flex>
   </v-layout>
 </template>
 
 <script>
-import Logo from "~/components/Logo.vue";
-import VuetifyLogo from "~/components/VuetifyLogo.vue";
+import { createClient } from '~/plugins/contentful.js'
 
+const client = createClient()
 export default {
-  components: {
-    Logo,
-    VuetifyLogo
+  layout: 'list',
+  async asyncData({ params }) {
+    // 記事一覧を取得
+    const entries = await client.getEntries({
+      content_type: process.env.CTF_CONTENT_TYPE_BLOG_ID,
+      order: '-sys.createdAt'
+    })
+    return {
+      posts: entries.items
+    }
   }
-};
+}
 </script>
+
+<style scoped>
+.article-list {
+  margin-bottom: 50px;
+}
+.blog-title {
+  text-align: center;
+}
+.v-card__title {
+  font-size: 1.15rem;
+}
+.link {
+  text-decoration: none !important;
+}
+.card-link:hover {
+  opacity: .9;
+}
+</style>

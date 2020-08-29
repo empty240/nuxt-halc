@@ -1,6 +1,6 @@
 <template>
   <div class="top-banner mt-9">
-    <nuxt-link :to="`/blog`" class="top-banner-icon">
+    <nuxt-link :to="`/`" class="top-banner-icon">
 fuzzy
     </nuxt-link>
   </div>

@@ -3,7 +3,7 @@
   <div v-if="articles.length > 0" class="side-title">関連記事</div>
   <div v-for="(post, index) in articles" :key="index"
       class="card-wrap">
-          <nuxt-link :to="`/blog/${post.fields.slug}`" class="link">
+          <nuxt-link :to="`/${post.fields.slug}`" class="link">
       <v-hover>
         <template v-slot="{ hover }">
         <v-card
