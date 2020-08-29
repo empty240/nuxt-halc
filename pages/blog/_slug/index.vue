@@ -77,6 +77,7 @@ export default {
     const entries = await client.getEntries({
       // 'fields.slug': params.slug,
       content_type: process.env.CTF_CONTENT_TYPE_BLOG_ID,
+      order: '-sys.createdAt'
     })
     const article = entries.items.find(item => item.fields.slug === params.slug)
     const relateArticles = entries.items.filter(item => item.fields.slug !== params.slug)
