@@ -1,6 +1,6 @@
 <template>
   <v-layout>
-    <v-flex class="">
+    <v-flex class="article-list">
       <v-row class="blog-title-wrap">
         <v-col class="blog-title">
           fuzzy
@@ -43,15 +43,7 @@
       </nuxt-link>
       </v-col>
       </v-row>
-      <h1>Blog</h1>
-      <ul>
-        <li v-for="(post, index) in posts" :key="index">
-          <nuxt-link :to="`/blog/${post.fields.slug}`">{{
-            post.fields.title
-          }}</nuxt-link>
-        </li>
-      </ul>
-      <div>{{ posts }}</div>
+      <!-- <div>{{ posts }}</div> -->
     </v-flex>
   </v-layout>
 </template>
@@ -76,6 +68,9 @@ export default {
 </script>
 
 <style scoped>
+.article-list {
+  margin-bottom: 50px;
+}
 .blog-title {
   text-align: center;
 }

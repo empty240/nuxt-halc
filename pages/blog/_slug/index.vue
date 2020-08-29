@@ -8,54 +8,22 @@
           class="pa-7"
         >
       <img v-if="article.fields.thumbnail" :src="article.fields.thumbnail.fields.file.url" width="100%" />
-      <v-row>
-        <span class="grey--text">{{ $jaDate(article.fields.createdAt) }}</span>
-      </v-row>
-      <v-row>
+      <div class="published-date">
+        <span class="grey--text">
+          {{ $jaDate(article.fields.createdAt) }}
+          </span>
+      </div>
+      <div class="article-title">
         <span>{{article.fields.title}}</span>
-      </v-row>
+      </div>
       <div v-html="$md.render(article.fields.content)"></div>
-      <div style="margin-top: 50px">{{article}}</div>
+      <!-- <div style="margin-top: 50px">{{article}}</div> -->
         </v-col>
-        <v-col
-          sm="12"
-          md="3"
-          class="pa-7"
-        >
+        <v-col sm="12" md="3" class="pa-7">
           <blog-author />
-          <div v-for="(post, index) in relateArticles" :key="index"
-      >
-          <nuxt-link :to="`/blog/${post.fields.slug}`" class="link">
-      <v-hover>
-        <template v-slot="{ hover }">
-        <v-card
-        :elevation="hover ? 24 : 6"
-        class="card-link"
-        >
-          <v-img
-            class="white--text"
-            height="200px"
-            :src="post.fields.thumbnail.fields.file.url"
-          >
-            <v-container fill-height fluid>
-              <v-layout fill-height>
-                <v-flex xs12 align-end flexbox>
-                  <span class="headline"></span>
-                </v-flex>
-              </v-layout>
-            </v-container>
-          </v-img>
-          <v-card-title>
-            <div>
-              <span class="grey--text">Number 10</span><br>
-              <span>{{post.fields.title}}</span>
-            </div>
-          </v-card-title>
-        </v-card>
-        </template>
-        </v-hover>
-      </nuxt-link>
-          </div>
+          <related-articles
+            :articles="relateArticles"
+          />
         </v-col>
       </v-row>
     </v-flex>
@@ -64,12 +32,15 @@
 <script>
 import { createClient } from '~/plugins/contentful.js'
 import Prism from '~/plugins/prism'
-import BlogAuthor from "~/components/BlogAuthor.vue";
+import BlogAuthor from "~/components/BlogAuthor.vue"
+import RelatedArticles from "~/components/RelatedArticles.vue"
+
 
 const client = createClient()
 export default {
   components: {
-    BlogAuthor
+    BlogAuthor,
+    RelatedArticles
   },
   layout: 'article',
   async asyncData({ params }) {
@@ -92,6 +63,16 @@ export default {
 }
 </script>
 
+<style scoped>
+.published-date {
+  margin: 5px 0;
+}
+.article-title {
+  font-size: 26px;
+  font-weight: bold;
+}
+</style>
+
 <style>
 .v-application h1,
 .v-application p,
@@ -106,8 +87,9 @@ export default {
 h1 {
   font-size: 24px;
   border-left: 6px solid #1538b7;
-  padding: 0 0 0 8px;
+  padding: 4px 0 0 8px;
   margin-top: 40px;
+  background-color: #f5f5f5;
 }
 h2 {
   font-size: 20px;
