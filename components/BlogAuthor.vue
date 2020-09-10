@@ -10,7 +10,7 @@
     </div>
     <div class="profile-content">
       <p>30歳を過ぎてからプログラミングを始める。<br />
-        今はフリーランス。<br />
+        今はエージェント経由で働くフリーランス。<br />
       最近の技術スタックはLaravel、Vue、Nuxt。</p>
     </div>
   </div>
@@ -24,6 +24,7 @@
 }
 .profile-header {
   text-align: center;
+  font-size: 18px;
 }
 .profile-icon {
   margin: 8px 0;
@@ -33,7 +34,6 @@
   width: 50px;
 }
 .profile-content {
-  padding: 4px;
   font-size: 14px;
 }
 </style>

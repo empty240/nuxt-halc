@@ -1,7 +1,7 @@
 <template>
   <v-app dark>
     <top-banner />
-    <v-container style="max-width: 1185px;">
+    <v-container style="max-width: 1150px;">
       <nuxt />
     </v-container>
     <custom-footer />

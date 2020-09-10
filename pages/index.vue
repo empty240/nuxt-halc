@@ -5,6 +5,7 @@
       <v-col v-for="(post, index) in posts" :key="index"
         sm="6"
         md="4"
+        class="pa-5"
       >
       <nuxt-link :to="`/${post.fields.slug}`" class="link">
       <v-hover>
@@ -15,7 +16,7 @@
         >
           <v-img
             class="white--text"
-            height="200px"
+            height="160px"
             :src="post.fields.thumbnail.fields.file.url"
           >
             <v-container fill-height fluid>
@@ -53,7 +54,8 @@ export default {
     // 記事一覧を取得
     const entries = await client.getEntries({
       content_type: process.env.CTF_CONTENT_TYPE_BLOG_ID,
-      order: '-sys.createdAt'
+      order: '-sys.createdAt',
+      'fields.published': true
     })
     return {
       posts: entries.items
@@ -71,6 +73,13 @@ export default {
 }
 .v-card__title {
   font-size: 1.15rem;
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  font-weight: 500;
+  letter-spacing: 0.0125em;
+  line-height: 2rem;
+  word-break: break-all;
 }
 .link {
   text-decoration: none !important;
