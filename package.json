@@ -12,7 +12,7 @@
   "dependencies": {
     "@nuxtjs/markdownit": "^1.2.10",
     "contentful": "^7.14.6",
-    "node-sass": "^4.14.1",
+    "node-sass": "^7.0.0",
     "nuxt": "^2.13.0",
     "prismjs": "^1.20.0",
     "sass-loader": "^7.3.1"
